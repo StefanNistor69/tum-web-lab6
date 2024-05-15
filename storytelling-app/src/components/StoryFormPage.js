@@ -4,7 +4,6 @@ import { Button, TextField, Typography, Container, CssBaseline } from '@material
 import { ThemeProvider } from '@material-ui/core/styles';
 import getTheme from '../theme';
 
-
 function StoryFormPage({ addStory, darkMode, toggleDarkMode }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -24,7 +23,6 @@ function StoryFormPage({ addStory, darkMode, toggleDarkMode }) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-       
         <form onSubmit={handleSubmit} style={{ margin: 20 }}>
           <Typography variant="h6">Add a New Story</Typography>
           <TextField
@@ -59,9 +57,7 @@ function StoryFormPage({ addStory, darkMode, toggleDarkMode }) {
             Add Story
           </Button>
         </form>
-        
       </Container>
-      
     </ThemeProvider>
   );
 }
