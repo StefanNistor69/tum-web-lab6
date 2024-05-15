@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { CssBaseline, Container, Button } from '@material-ui/core';
 import Header from './components/Header';
 import StoryList from './components/StoryList';
-import StoryForm from './components/StoryForm';
-import { CssBaseline } from '@material-ui/core';
 
-function App({ darkMode, toggleDarkMode }) {
-  const [stories, setStories] = useState([]);
-
-  const addStory = (newStory) => {
-    setStories([...stories, { id: stories.length + 1, title: newStory, isFavorite: false }]);
-  };
-
-  const deleteStory = (id) => {
-    setStories(stories.filter(story => story.id !== id));
-  };
-
+function App({ darkMode, toggleDarkMode, stories, deleteStory }) {
   return (
     <>
       <CssBaseline />
       <Header darkMode={darkMode} handleToggleDarkMode={toggleDarkMode} />
-      <StoryForm addStory={addStory} />
-      <StoryList stories={stories} deleteStory={deleteStory} />
+      <Container>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/create-story"
+          style={{ margin: '20px 0' }}
+        >
+          Create Story
+        </Button>
+        <StoryList stories={stories} deleteStory={deleteStory} />
+      </Container>
     </>
   );
 }
