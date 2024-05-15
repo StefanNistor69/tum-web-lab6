@@ -19,7 +19,7 @@ function App({ darkMode, toggleDarkMode, stories, deleteStory }) {
         >
           Create Story
         </Button>
-        <StoryList stories={stories} deleteStory={deleteStory} />
+        <StoryList stories={stories} deleteStory={deleteStory} darkMode={darkMode} />
       </Container>
     </>
   );

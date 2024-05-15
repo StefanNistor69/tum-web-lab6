@@ -6,6 +6,7 @@ import getTheme from './theme';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import StoryFormPage from './components/StoryFormPage';
 
+
 const Root = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [stories, setStories] = useState([]);
@@ -49,7 +50,15 @@ const Root = () => {
           />
           <Route
             path="/create-story"
-            element={<StoryFormPage addStory={addStory} />}
+            element={
+            
+              <StoryFormPage
+                addStory={addStory}
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+              />
+              
+            }
           />
         </Routes>
       </Router>

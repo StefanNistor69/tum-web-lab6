@@ -1,11 +1,11 @@
 import React from 'react';
 import StoryItem from './StoryItem';
 
-function StoryList({ stories, deleteStory }) {
+function StoryList({ stories, deleteStory, darkMode }) {
   return (
     <div style={{ margin: 20 }}>
       {stories.map(story => (
-        <StoryItem key={story.id} story={story} deleteStory={deleteStory} />
+        <StoryItem key={story.id} story={story} deleteStory={deleteStory} darkMode={darkMode} />
       ))}
     </div>
   );

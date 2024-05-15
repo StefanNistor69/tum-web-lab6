@@ -1,10 +1,9 @@
 import React from 'react';
 import { Card, CardContent, Typography, IconButton, Button } from '@material-ui/core';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
 
-function StoryItem({ story, deleteStory }) {
+function StoryItem({ story, deleteStory, darkMode }) {
   return (
-    <Card style={{ marginBottom: 20 }}>
+    <Card style={{ marginBottom: 20, backgroundColor: darkMode ? '#424242' : '#ffffff', color: darkMode ? '#ffffff' : '#000000' }}>
       <CardContent>
         <Typography variant="h5">{story.title}</Typography>
         <IconButton>
