@@ -4,7 +4,7 @@ import { CssBaseline, Container, Button } from '@material-ui/core';
 import Header from './components/Header';
 import StoryList from './components/StoryList';
 
-function App({ darkMode, toggleDarkMode, stories, deleteStory }) {
+function App({ darkMode, toggleDarkMode, stories, deleteStory, addToFavorites }) {
   return (
     <>
       <CssBaseline />
@@ -19,7 +19,16 @@ function App({ darkMode, toggleDarkMode, stories, deleteStory }) {
         >
           Create Story
         </Button>
-        <StoryList stories={stories} deleteStory={deleteStory} darkMode={darkMode} />
+        <Button
+          variant="contained"
+          color="default"
+          component={Link}
+          to="/favorites"
+          style={{ margin: '20px 0' }}
+        >
+          View Favorites
+        </Button>
+        <StoryList stories={stories} deleteStory={deleteStory} darkMode={darkMode} addToFavorites={addToFavorites} />
       </Container>
     </>
   );
