@@ -1,24 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Typography, Button, CssBaseline } from '@material-ui/core';
+import { Container, CssBaseline, Button } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import getTheme from '../theme';
 import StoryList from './StoryList';
+import logo from '../assets/logoSite.png'; // Ensure your logo image is in the correct path
 
 const HomePage = ({ darkMode, toggleDarkMode, stories, addToFavorites, deleteStory }) => {
   const theme = getTheme(darkMode);
 
+  const styles = {
+    section1: {
+       // Replace with your background image URL
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      padding: '20px 0',
+      textAlign: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '600px',
+    },
+    section2: {
+      backgroundColor: darkMode ? '#424242' : '#ffffff',
+      padding: '20px 0',
+    },
+    button: {
+      margin: '10px',
+    },
+    logo: {
+      width: '350px', // Adjust the logo size as needed
+      marginBottom: '20px',
+    },
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container>
-        <Typography variant="h4" gutterBottom>Home</Typography>
+      <div style={styles.section1}>
+        <img src={logo} alt="Logo" style={styles.logo} />
         <Button
           variant="contained"
           color="primary"
           component={Link}
           to="/create-story"
-          style={{ margin: '10px 0' }}
+          style={styles.button}
         >
           Create Story
         </Button>
@@ -27,12 +54,16 @@ const HomePage = ({ darkMode, toggleDarkMode, stories, addToFavorites, deleteSto
           color="default"
           component={Link}
           to="/favorites"
-          style={{ margin: '10px 10px' }}
+          style={styles.button}
         >
           View Favorites
         </Button>
-        <StoryList stories={stories} deleteStory={deleteStory} darkMode={darkMode} addToFavorites={addToFavorites} />
-      </Container>
+      </div>
+      <div style={styles.section2}>
+        <Container>
+          <StoryList stories={stories} deleteStory={deleteStory} darkMode={darkMode} addToFavorites={addToFavorites} />
+        </Container>
+      </div>
     </ThemeProvider>
   );
 };
