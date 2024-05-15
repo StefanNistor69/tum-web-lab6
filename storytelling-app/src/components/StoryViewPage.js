@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Button, CssBaseline } from '@material-ui/core';
+import { Container, Typography, TextField, Button, CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import getTheme from '../theme';
 
@@ -17,14 +17,46 @@ const StoryViewPage = ({ darkMode, stories }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-        <Typography variant="h4" gutterBottom>{story.title}</Typography>
-        <Typography variant="h6" gutterBottom>Description:</Typography>
-        <Typography paragraph>{story.description}</Typography>
-        <Typography variant="h6" gutterBottom>Content:</Typography>
-        <Typography paragraph>{story.content}</Typography>
-        <Button variant="contained" color="primary" component={Link} to="/">
-          Back to Stories
-        </Button>
+        <form style={{ margin: 20 }}>
+          <Typography variant="h6">View Story</Typography>
+          <TextField
+            label="Story Title"
+            variant="outlined"
+            fullWidth
+            value={story.title}
+            style={{ marginBottom: 20 }}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            label="Content"
+            variant="outlined"
+            fullWidth
+            value={story.description}
+            style={{ marginBottom: 20 }}
+            multiline
+            rows={2}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <TextField
+            label="Description"
+            variant="outlined"
+            fullWidth
+            value={story.content}
+            style={{ marginBottom: 20 }}
+            multiline
+            rows={4}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+          <Button variant="contained" color="primary" component={Link} to="/">
+            Back to Stories
+          </Button>
+        </form>
       </Container>
     </ThemeProvider>
   );
