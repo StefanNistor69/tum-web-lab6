@@ -7,7 +7,10 @@ import StoryFormPage from './components/StoryFormPage';
 import StoryViewPage from './components/StoryViewPage';
 import FavoritesPage from './components/FavoritesPage';
 import Header from './components/Header';
-
+import Login from './components/Login';
+import { Service } from './service/service';
+import { getToken } from './service/tokenTools';
+const service = new Service()
 const Root = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [stories, setStories] = useState([]);
@@ -16,7 +19,7 @@ const Root = () => {
   useEffect(() => {
     const savedMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedMode);
-    
+
     const savedStories = JSON.parse(localStorage.getItem('stories'));
     if (savedStories) {
       setStories(savedStories);
@@ -42,9 +45,14 @@ const Root = () => {
       return !prevMode;
     });
   };
-
+  const handleAdd = (data) => {
+    if(!data) return
+    console.log(data)
+    setStories([...stories, data]);
+  }
   const addStory = (newStory) => {
-    setStories([...stories, { id: stories.length + 1, ...newStory }]);
+    service.postAxios("/api/stories",newStory,handleAdd,getToken())
+    
   };
 
   const deleteStory = (id) => {
@@ -107,6 +115,14 @@ const Root = () => {
                 darkMode={darkMode}
                 favorites={favorites}
                 removeFromFavorites={removeFromFavorites}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Login
+
               />
             }
           />

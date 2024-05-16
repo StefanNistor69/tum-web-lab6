@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(() => {
@@ -13,10 +12,19 @@ export const AuthProvider = ({ children }) => {
   });
   const navigate = useNavigate();
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    setAuth({});
+    navigate('/login');
+    window.localStorage.setItem('logout', Date.now());
+    window.localStorage.removeItem('logout');
+  };
+
   useEffect(() => {
     const syncLogout = event => {
       if (event.key === 'logout') {
-        console.log('Logging out from other tab');
         logout();
       }
     };
@@ -33,16 +41,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('role', role);
     setAuth({ token, username, role });
     navigate('/');
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('role');
-    setAuth({});
-    navigate('/login');
-    window.localStorage.setItem('logout', Date.now());
-    window.localStorage.removeItem('logout');
   };
 
   return (

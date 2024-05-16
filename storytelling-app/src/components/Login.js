@@ -2,34 +2,33 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { useAuth } from '../context/AuthContext';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useAuth } from '../context/AuthContext';
+import { Service } from "../service/service"
+import { setToken } from '../service/tokenTools';
 
+const service = new Service()
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
-
+  // const { login } = useAuth();
+  const handleLogin = (data) => {
+    console.log(data)
+    const { token } = data;
+    setToken(token)
+    navigate("/")
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        username,
-        password,
-      });
-      const { token, username: responseUsername, role } = response.data;
-      if (token) {
-        login(token, responseUsername, role);
-        navigate('/');
-      } else {
-        console.error('No token received');
-      }
-    } catch (error) {
-      console.error('Error logging in:', error.response ? error.response.data : error);
+    const obj = {
+      username: username ?? "",
+      password: password ?? ""
     }
+    service.postAxios("/api/auth/login", obj, handleLogin)
+
   };
 
   return (
